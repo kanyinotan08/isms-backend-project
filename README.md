@@ -1,7 +1,7 @@
-# ISM 121 - Web Based Technologies and Multimedia
+# ISM 210: Mobile-Based Technologies and Multimedia
 ## CA 1 - Question 2
 **Student:** Kanyinsola Oduntan
-**Course:** ISM 121
+**Course:** ISM 210
 
 
 ---
