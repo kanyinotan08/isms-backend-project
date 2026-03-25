@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CatPhotoApp Form</title>
+    <title>CatPhotoApp - ISMS Backend Project</title>
   </head>
   <body>
-    <h1>CatPhotoApp Form</h1>
+    <h1>CatPhotoApp - ISMS Backend API</h1>
+    <p><strong>Server is up and ready!</strong></p>
+
+    <hr>
+
+    <h2>Submit a Cat Photo Entry</h2>
     <form action="/api/submit-form" method="post">
       <label for="indoorOutdoor">Indoor/Outdoor: </label>
       <select id="indoorOutdoor" name="indoorOutdoor">
@@ -19,10 +24,35 @@
       <input type="checkbox" name="personality" value="Lazy"> Lazy
       <input type="checkbox" name="personality" value="Crazy"> Crazy
       <br><br>
-      <label for="catUrl">Cat URL: </label>
-      <input id="catUrl" name="catUrl" type="text">
+      <label for="catUrl">Message: </label>
+      <input id="catUrl" name="catUrl" type="text" value="This is a very great and cool cat">
       <br><br>
       <input type="submit" value="Submit">
     </form>
+
+    <hr>
+
+    <h2>API Endpoints</h2>
+    <p><a href="/api/server/status">Server Status</a></p>
+    <p><a href="/api/cat-photos">View All Cat Photos</a></p>
+
+    <hr>
+
+    <h2>Testing with curl</h2>
+
+    <h3>Create</h3>
+    <pre>curl -X POST https://isms-backend-project.onrender.com/api/submit-form -H "Content-Type: application/json" -d '{"indoorOutdoor":"indoor","personality":["Loving","Lazy","Crazy"],"catUrl":"This is a very great and cool cat"}'</pre>
+
+    <h3>Read All</h3>
+    <pre>curl https://isms-backend-project.onrender.com/api/cat-photos</pre>
+
+    <h3>Read One</h3>
+    <pre>curl https://isms-backend-project.onrender.com/api/cat-photos/&lt;id&gt;</pre>
+
+    <h3>Update</h3>
+    <pre>curl -X PUT https://isms-backend-project.onrender.com/api/cat-photos/&lt;id&gt; -H "Content-Type: application/json" -d '{"indoorOutdoor":"outdoor","personality":["Playful"],"catUrl":"Updated cat entry"}'</pre>
+
+    <h3>Delete</h3>
+    <pre>curl -X DELETE https://isms-backend-project.onrender.com/api/cat-photos/&lt;id&gt;</pre>
   </body>
 </html>
