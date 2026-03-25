@@ -88,11 +88,18 @@ curl -X PUT http://localhost:3000/api/cat-photos/<id> -H "Content-Type: applicat
 ```bash
 curl -X DELETE http://localhost:3000/api/cat-photos/<id>
 ```
+### 6. HTML Frontend
 
-### 6. Deployment
+I added a simple HTML form (`index.html`) that allows users to submit cat photo data directly from the browser. The form sends a POST request to the `/api/submit-form` endpoint, which saves the data to MongoDB Atlas and returns the saved entry as JSON.
+
+The form is served by Express using `res.sendFile()` on the root route (`/`), so visiting the deployed URL displays the form.
+
+### 7. Deployment
 
 The API was deployed to Render and the code was pushed to GitHub.
 
+- **Deployed API URL:** https://isms-backend-project.onrender.com
+- **View all cat photos:** https://isms-backend-project.onrender.com/api/cat-photos
 - **GitHub URL:** https://github.com/kanyinotan08/isms-backend-project
 
 ---

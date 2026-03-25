@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CatPhotoApp Form</title>
+  </head>
+  <body>
+    <h1>CatPhotoApp Form</h1>
+    <form action="/api/submit-form" method="post">
+      <label for="indoorOutdoor">Indoor/Outdoor: </label>
+      <select id="indoorOutdoor" name="indoorOutdoor">
+        <option value="indoor">Indoor</option>
+        <option value="outdoor">Outdoor</option>
+      </select>
+      <br><br>
+      <label>Personality: </label>
+      <input type="checkbox" name="personality" value="Loving"> Loving
+      <input type="checkbox" name="personality" value="Lazy"> Lazy
+      <input type="checkbox" name="personality" value="Crazy"> Crazy
+      <br><br>
+      <label for="catUrl">Cat URL: </label>
+      <input id="catUrl" name="catUrl" type="text">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

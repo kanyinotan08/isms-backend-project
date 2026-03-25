@@ -1,20 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
-
+ 
 const CatPhoto = require('./models/CatPhoto');
-
+ 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+ 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+ 
 // MongoDB Atlas connection string (from .env file)
 const dbURI = process.env.MONGODB_URI;
-
+ 
 mongoose.connect(dbURI)
   .then(() => {
     console.log('Connected to MongoDB Atlas');
@@ -25,46 +26,46 @@ mongoose.connect(dbURI)
   .catch((err) => {
     console.log('Error connecting to MongoDB:', err);
   });
-
-
-// Root route - Server status check
+ 
+ 
+// Root route - Serve the CatPhotoApp form
 app.get('/', (req, res) => {
-  res.json({ status: 200, msg: 'Server is up and ready!' });
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
-
+ 
 // Server status route 
 app.get('/api/server/status', (req, res) => {
   res.json({ msg: 'Server is up and ready!' });
 });
-
-
+ 
+ 
 // CREATE - Submit a new cat photo entry (POST)
 app.post('/api/submit-form', async (req, res) => {
   try {
     const body = req.body;
     console.log('Received form data:', body);
-
+ 
     const catPhoto = new CatPhoto({
       indoorOutdoor: body['indoor-outdoor'] || body.indoorOutdoor,
       personality: body.personality,
       catUrl: body.catUrl
     });
-
+ 
     const savedCatPhoto = await catPhoto.save();
-
+ 
     const responseData = {
       statusCode: 201,
       msg: 'Cat Form submission successful! Data saved to MongoDB Atlas.',
       data: savedCatPhoto
     };
-
+ 
     res.status(201).json(responseData);
   } catch (error) {
     console.error('Error saving cat photo:', error);
     res.status(400).json({ statusCode: 400, msg: error.message });
   }
 });
-
+ 
 // READ ALL - Get all cat photo entries (GET)
 app.get('/api/cat-photos', async (req, res) => {
   try {
@@ -79,7 +80,7 @@ app.get('/api/cat-photos', async (req, res) => {
     res.status(500).json({ statusCode: 500, msg: error.message });
   }
 });
-
+ 
 // READ ONE - Get a single cat photo entry by ID (GET)
 app.get('/api/cat-photos/:id', async (req, res) => {
   try {
@@ -97,7 +98,7 @@ app.get('/api/cat-photos/:id', async (req, res) => {
     res.status(500).json({ statusCode: 500, msg: error.message });
   }
 });
-
+ 
 // UPDATE - Update a cat photo entry by ID (PUT)
 app.put('/api/cat-photos/:id', async (req, res) => {
   try {
@@ -107,13 +108,13 @@ app.put('/api/cat-photos/:id', async (req, res) => {
       personality: body.personality,
       catUrl: body.catUrl
     };
-
+ 
     const catPhoto = await CatPhoto.findByIdAndUpdate(
       req.params.id,
       updateData,
       { new: true, runValidators: true }
     );
-
+ 
     if (catPhoto) {
       res.json({
         statusCode: 200,
@@ -127,7 +128,7 @@ app.put('/api/cat-photos/:id', async (req, res) => {
     res.status(400).json({ statusCode: 400, msg: error.message });
   }
 });
-
+ 
 // DELETE - Delete a cat photo entry by ID (DELETE)
 app.delete('/api/cat-photos/:id', async (req, res) => {
   try {
